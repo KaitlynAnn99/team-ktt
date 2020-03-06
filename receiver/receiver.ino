@@ -22,7 +22,7 @@ bool checkBuf(uint8_t * buf) {
     if (sizeof(buf) <= 2 * sizeof(uint8_t)) {
         return false;
     }
-    return (buf[0] == defaultDeviceSequence[0] && buf[1] == defaultDeviceSequence);
+    return (buf[0] == defaultDeviceSequence[0] && buf[1] == defaultDeviceSequence[1]);
 }
 
 int parseInt(uint8_t * buf) {
