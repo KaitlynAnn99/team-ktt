@@ -145,4 +145,39 @@ void loop()
   frequency = 60000 * (1 / (double) periodTime);
   }
   
+  bool validateInput(char *inputString) {
+    if (strlen(inputString) < 2) {
+      return false;
+    }
+  
+    bool letter = true;
+    if (inputString[0] == '*') {
+      if (strlen(inputString) == 2 && inputString[strlen(inputString) - 1] == '#') {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (inputString[0] <= '9' && inputString[0] >= '0') {
+      letter = false;
+    }
+  
+    if (letter) {
+      for (int i = 1; i < strlen(inputString); i++) {
+        if (inputString[i] < 'A' || inputString[i] > 'Z') {
+          return false;
+        }
+      }
+    } else {
+      int tempo = 0;
+      for (int i = 1; i < strlen(inputString); i++) {
+        if (inputString[0] <= '9' && inputString[0] >= '0') {
+          tempo = tempo * 10 + (inputString[i] - 48);
+        } else {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
 }
