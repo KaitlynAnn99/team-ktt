@@ -17,6 +17,27 @@ void setup()
 }
 
 
+void powerOff();
+void powerOn();
+
+int receiveMessage(char * message) {
+    char seqFirst = message[0];
+    char seqSecond = message[1];
+
+    // sequence matches the receiver sequence 
+    if (checkBuf(message)) {
+        if (checkInt(message)) {
+            return parseInt(message);
+        } else if (checkOnOff(message)) {
+            return 0;
+        }
+        
+    } else {
+        return -1;
+    }
+}
+
+
 // this function check whether the buffer contains
 // the default deveice sequence number
 bool checkBuf(uint8_t * buf) {
@@ -47,21 +68,21 @@ int parseInt(uint8_t * buf) {
     return res;
 }
 
-void loop()
-{
-    uint8_t buf[12];
-    uint8_t buflen = sizeof(buf);
+// void loop()
+// {
+//     uint8_t buf[12];
+//     uint8_t buflen = sizeof(buf);
 
-    if (driver.recv(buf, &buflen)) // Non-blocking
-    {
-        if (checkBuf(buf)) {
-            if (checkInt(buf)) {
-                frequency = parseInt(buf);
-            }
-            else if (checkOnOff(buf)) {
-                inSleep = !inSleep;
-            }
-        }
-    }
+//     if (driver.recv(buf, &buflen)) // Non-blocking
+//     {
+//         if (checkBuf(buf)) {
+//             if (checkInt(buf)) {
+//                 frequency = parseInt(buf);
+//             }
+//             else if (checkOnOff(buf)) {
+//                 inSleep = !inSleep;
+//             }
+//         }
+//     }
                
-}
+// }
