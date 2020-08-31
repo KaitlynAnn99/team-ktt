@@ -6,6 +6,7 @@ RH_ASK driver;
 uint8_t defaultDeviceSequence[2] = {'A', 'A'};
 uint8_t sequence[2];
 bool inSleep = false;
+uint8_t frequency = 0;
 
 int outputPin = 9;
 void setup()
@@ -68,21 +69,19 @@ int parseInt(uint8_t * buf) {
     return res;
 }
 
-// void loop()
-// {
-//     uint8_t buf[12];
-//     uint8_t buflen = sizeof(buf);
-
-//     if (driver.recv(buf, &buflen)) // Non-blocking
-//     {
-//         if (checkBuf(buf)) {
-//             if (checkInt(buf)) {
-//                 frequency = parseInt(buf);
-//             }
-//             else if (checkOnOff(buf)) {
-//                 inSleep = !inSleep;
-//             }
-//         }
-//     }
-               
-// }
+ void loop()
+ {
+     uint8_t buf[12];
+     uint8_t buflen = sizeof(buf);
+     if (driver.recv(buf, &buflen)) // Non-blocking
+     {
+         if (checkBuf(buf)) {
+             if (checkInt(buf)) {
+                 frequency = parseInt(buf);
+             }
+             else if (checkOnOff(buf)) {
+                 inSleep = !inSleep;
+             }
+         }
+     }      
+ }
